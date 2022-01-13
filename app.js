@@ -43,6 +43,7 @@ const userSchema = mongoose.Schema({
 });
 const postSchema = mongoose.Schema({
   postedtext:String,
+  time:String,
   postedby:Object
 });
 
@@ -78,7 +79,7 @@ app.get("/feed", function(req, res){
       } else {
         if (foundPosts) {
           //console.log(foundPosts);
-          res.render("feed",{allposts: foundPosts});
+          res.render("feed",{allposts: foundPosts.reverse()});
         }
       }
     });
@@ -132,9 +133,8 @@ app.post("/register",function(req,res){
 
 app.post("/addpost", function(req, res){
   if (req.isAuthenticated()){
-    console.log(req.body);
-    console.log(req.user.id);
-    //var datetime = new Date();
+  var currdate = new Date();
+  var datetime =  currdate.toLocaleDateString()+" "+currdate.toLocaleTimeString();
     if(req.body.inputText!=='')
     {
       User.findById(req.user.id, function(err, foundUser){
@@ -142,15 +142,10 @@ app.post("/addpost", function(req, res){
           console.log(err);
         } else {
           if (foundUser) {
-            //console.log(foundUser);
-            //foundUser.secret = submittedSecret;
-            // foundUser.save(function(){
-            //   res.redirect("/secrets");
-            // });
             var newPost = new Post({
                       postedtext: req.body.inputText,
-                      postedby:foundUser
-                      //time: datetime
+                      postedby:foundUser,
+                      time: datetime
                     })
             newPost.save(function(err) {
                       if (err) {
@@ -173,7 +168,11 @@ app.post("/addpost", function(req, res){
 
 
 app.get("/", function(req, res) {
-  res.render("login");
+  if (req.isAuthenticated()){
+    res.redirect("/feed");
+  } else {
+    res.redirect("/login");
+  }
 });
 
 
@@ -185,13 +184,6 @@ app.get('/login', function(req, res){
     res.render('login');
 });
 
-
 app.listen(3000, function(){
     console.log("Server started on port 3000");
 });
-
-
-
-/*
-
-*/

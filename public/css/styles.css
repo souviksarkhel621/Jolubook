@@ -243,10 +243,10 @@
 
 /**************** Chatbox Begins ************************/
 #root .chatbox {
-    display: flex;
-    justify-content: center;
-    margin-top: 6px;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+  position: relative;
 }
 
 #root .chatbox .feed {
@@ -254,6 +254,7 @@
     background-color: #fff;
     color: rgb(73, 71, 71);
     padding: 8px;
+    margin-bottom: 5px;
     border-radius: 10px;
 }
 
