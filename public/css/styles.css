@@ -426,67 +426,174 @@
 /**************** Chatbox Ends **************/
 
 
-/**************** Post Box Starts ************/
-.open-button {
-    background-color: #555;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    opacity: 0.8;
+
+
+/**************** Start Post Box Starts ************/
+.start-post-div{
     position: fixed;
-    bottom: 100px;
-    right: 28px;
-    width: 280px;
+    right: 20px;
+    top: 90px;
+    height: 100px;
+    width: 410px;
+    background-color: #fff;
+    border-radius: 10px;
 }
 
-.form-popup {
-    display: none;
-    position: fixed;
-    bottom: 80px;
-    right: 15px;
-    border: 3px solid #f1f1f1;
-    z-index: 9;
+.start-post-div .post-body {
+    height: 100px;
+    width: 410px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
 }
 
-.form-container {
-    max-width: 300px;
-    padding: 10px;
-    background-color: white;
-}
-
-.form-container textarea {
-    width: 100%;
+.start-post-div .post-body .start-post-img {
+    height: 100px;
+    width: 80px;
     padding: 5px;
-    margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
+    padding-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.form-container textarea:focus {
-    background-color: #ddd;
+.start-post-div .post-body .start-post-img img {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.start-post-div .post-body .start-post-content {
+    width: 330px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-post-div .post-body .start-post-content input {
+    padding: 15px;
+    height: 55px;
+    width: 330px;
     outline: none;
+    border: none;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ddd;
+    margin-right: 10px;
+    color: #2e2e2e;
 }
 
-.form-container .btn {
-    background-color: #04AA6D;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
+
+
+.post-box-container {
+    width: 500px;
+    height: 320px;
+    position: fixed;
+    z-index: 100;
+    left: 50%;
+    top: 100px;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border-radius: 10px;
+    display: none;
+}
+
+.post-box-container .post-heading {
     width: 100%;
-    margin-bottom:10px;
+    height: 60px;
+    position: relative;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.post-box-container .post-heading p {
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #504b4b;
+    padding-top: 5px;
+}
+
+.post-box-container .post-heading i {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 30px;
+    border-right: 50%;
+    cursor: pointer;
+    color: #181717;
     opacity: 0.8;
 }
 
-.form-container .cancel {
-    background-color: red;
-}
-
-.form-container .btn:hover, .open-button:hover {
+.post-box-container .post-heading i:hover {
     opacity: 1;
 }
-/**************** Post Box Ends **************/
+
+.post-box-container hr {
+    border: 0;
+    border-bottom: 2px solid #706f6f;
+    margin: 0;
+    padding: 0;
+}
+
+.post-box-container .post-name-img {
+    height: 50px;
+    width: 100%;
+    padding: 10px 5px;
+}
+
+.post-box-container .post-name-img img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.post-box-container .post-name-img .post-name {
+    display: inline;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.post-box-container .post-box-body {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-box-container .post-box-body textarea {
+    border: none;
+    outline: none;
+    color: #212224;
+}
+
+.post-box-container .send-button {
+    height: 20px;
+    width: 100%;
+}
+
+.post-box-container .send-button button {
+    visibility: hidden;
+}
+
+.post-box-container .send-button button i {
+    visibility: visible;
+    font-size: 35px;
+    color: #929292;
+    position: absolute;
+    right: 25px;
+    bottom: 8px;
+}
+/**************** Start Post Box Ends **************/
+
+
 
 
 /******************* Owner Profile Starts ******************/
@@ -494,14 +601,56 @@
     width: 380px;
     height: 450px;
     color: #fff;
-    position: absolute;
-    left: 580px;
-    bottom: 110px;
-    border-radius: 30px;
+    border-radius: 20px;
     box-shadow: 10px 15px 20px grey;
     z-index: 1;
     background-color: #202431;
+    position: fixed;
+}
+
+#root .owner-profile i {
+    position: absolute;
+    color: #fff;
+    font-size: 25px;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+}
+
+#mongalmoyProfile {
+    position: fixed;
+    left: 565px;
+    bottom: 85px;
     display: none;
+}
+
+#mongalmoyProfile::after {
+    content: "";
+    position: fixed;
+    left: 730px;
+    bottom: 35px;
+    margin-left: -5px;
+    border-width: 25px;
+    border-style: solid;
+    border-color: #202431 transparent transparent transparent;
+}
+
+#souvikProfile {
+    position: fixed;
+    left: 700px;
+    bottom: 85px;
+    display: none;
+}
+
+#souvikProfile::after {
+    content: "";
+    position: fixed;
+    left: 870px;
+    bottom: 35px;
+    margin-left: -5px;
+    border-width: 25px;
+    border-style: solid;
+    border-color: #202431 transparent transparent transparent;
 }
 
 #root .owner-profile .profile-img {
