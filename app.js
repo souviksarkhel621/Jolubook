@@ -73,7 +73,9 @@ app.get("/logout", function(req, res){
 
 app.get("/account", function(req, res) {
   if (req.isAuthenticated()){
-    res.render("account");
+    console.log(req.user);
+    res.render("account",{user:req.user});
+
   } else {
     res.redirect("/login");
   }
