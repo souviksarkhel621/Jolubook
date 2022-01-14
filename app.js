@@ -73,7 +73,7 @@ app.get("/logout", function(req, res){
 
 app.get("/account", function(req, res) {
   if (req.isAuthenticated()){
-    console.log(req.user);
+    //console.log(req.user);
     res.render("account",{user:req.user});
 
   } else {
@@ -90,7 +90,7 @@ app.get("/feed", function(req, res){
       } else {
         if (foundPosts) {
           //console.log(foundPosts);
-          res.render("feed",{allposts: foundPosts.reverse()});
+          res.render("feed",{allposts: foundPosts.reverse(),currentuser:req.user.name});
         }
       }
     });

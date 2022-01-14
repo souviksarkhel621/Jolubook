@@ -1,9 +1,10 @@
-<%- include('partials/header'); -%>
+<%- include('partials/header',{myname:currentuser}); -%>
 
 
 <div class="chatbox" id="chatbox">
 
   <div>
+
     <% allposts.forEach(function(post){ %>
     <div class="feed">
 
@@ -76,7 +77,7 @@
         <img src="/images/souviksarkhel_img.jpg" alt="_userimage">
       </div>
       <div class="start-post-content">
-        <input onfocus="openForm()" placeholder="Start a post">
+        <input onfocus="openForm()" placeholder="Add a post">
       </div>
 
     </div>
