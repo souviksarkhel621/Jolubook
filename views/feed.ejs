@@ -11,13 +11,13 @@
       <div class="user-profile-container">
 
         <div class="user-img">
-          <img src="/images/mongalmoy_img.jpg" alt="">
+          <img src="/images/avatar.png" alt="">
         </div>
 
         <div class="user-info">
           <p class="user-name"><%=post.postedby.name%></p>
           <p class="user-bio">Currently Working At: <strong><%=post.postedby.currorg%></strong></p>
-          <p class="user-bio">JGEC<%=post.postedby.department%><%=post.postedby.year%></p>
+          <p class="user-bio">JGEC <%=post.postedby.department%>'<%=post.postedby.year%></p>
         </div>
 
         <div class="post-time-div">
@@ -52,9 +52,9 @@
     <hr>
 
     <div class="post-name-img">
-      <img src="/images/souviksarkhel_img.jpg" alt="_image">
+      <img src="/images/avatar.png" alt="_image">
       <div class="post-name">
-        Mongalmoy Karmakar
+        <%=currentuser%>
       </div>
     </div>
 
@@ -74,7 +74,7 @@
     <div class="post-body">
 
       <div class="start-post-img">
-        <img src="/images/souviksarkhel_img.jpg" alt="_userimage">
+        <img src="/images/avatar.png" alt="_userimage">
       </div>
       <div class="start-post-content">
         <input onfocus="openForm()" placeholder="Add a post">
