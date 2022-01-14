@@ -70,6 +70,15 @@ app.get("/logout", function(req, res){
   req.logout();
   res.redirect("/");
 });
+
+app.get("/account", function(req, res) {
+  if (req.isAuthenticated()){
+    res.render("account");
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.get("/feed", function(req, res){
   if (req.isAuthenticated()){
 
@@ -171,7 +180,7 @@ app.get("/", function(req, res) {
   if (req.isAuthenticated()){
     res.redirect("/feed");
   } else {
-    res.redirect("/login");
+    res.render("homepage");
   }
 });
 

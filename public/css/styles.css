@@ -4,10 +4,18 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-#root {
+#body {
     background: #E0E0E0;
     height: 100vh;
-    z-index: -1;
+    z-index: 0;
+}
+
+#body nav {
+    z-index: 1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
 }
 
 .container-fluid .navbar-brand {
@@ -25,6 +33,73 @@
     margin-left: 1000px;
     font-size: 25px;
 }
+
+
+
+
+/***************** Enter Page Starts ******************/
+.enter-page img {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    opacity: 0.9;
+}
+
+.enter-page .welcome-to-jolubook {
+    position: absolute;
+    left: 50%;
+    bottom: 350px;
+    color: #fff;
+    transform:translateX(-50%);
+    color: #fff;
+}
+
+.enter-page .welcome-to-jolubook h1 {
+    font-weight: 900;
+    font-size: 50px;
+    font-family: 'Mochiy Pop P One', sans-serif;
+}
+
+.enter-page .buttons {
+    position: absolute;
+    left: 50%;
+    bottom: 250px;
+    transform:translateX(-50%);
+}
+
+.enter-page .buttons button {
+    outline: none;
+    border: none;
+    background-color: #2e2e2e;
+    color: #fff;
+    padding: 5px 20px;
+    margin-right: 50px;
+    width: 150px;
+    height: 45px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.enter-page .buttons button:hover {
+    color: aqua;
+}
+
+.enter-page .developer-names {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.enter-page .developer-names span:hover {
+    color: aquamarine;
+}
+/***************** Enter page Ends *******************/
+
 
 
 /******************* Register Page Begins ************************/
@@ -241,26 +316,58 @@
 
 
 
-/**************** Chatbox Begins ************************/
+/**************** Chatbox Starts ************************/
+#root {
+    z-index: 0;
+    background-color: #E0E0E0;
+    position: absolute;
+    left: 0;
+    top: 85px;
+    width: 100%;
+    padding-bottom: 68px;
+}
+
 #root .chatbox {
-  display: flex;
-  justify-content: center;
-  margin-top: 6px;
-  position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+    position: relative;
 }
 
 #root .chatbox .feed {
     width: 600px;
     background-color: #fff;
     color: rgb(73, 71, 71);
-    padding: 8px;
-    margin-bottom: 5px;
+    padding: 8px 10px;
     border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+#root .chatbox .feed .user-profile-container {
+    position: relative;
+    height: 75px;
+}
+
+#root .chatbox .feed .user-profile-container .user-img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#root .chatbox .feed .user-profile-container .user-img img{
+    height: 60px;
+    border-radius: 50%;
 }
 
 #root .chatbox .feed .user-info {
     margin: 0;
     padding: 0;
+    height: 80px;
+    position: absolute;
+    left: 80px;
+    top: 0;
 }
 /* 99A799 */
 #root .chatbox .feed .user-info p {
@@ -278,23 +385,44 @@
     font-size: 12px;
 }
 
-#root .chatbox .feed .user-info svg {
+#root .chatbox .feed .user-profile-container .post-time-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    font-size: 12px;
+}
+
+#root .chatbox .feed .user-profile-container .post-time-div i {
     color: #99A799;
     font-size: 12px;
     display: inline;
 }
 
-#root .chatbox .feed .user-info .post-time {
+#root .chatbox .feed .user-profile-container .post-time-div  p {
     color: #99A799;
     font-size: 12px;
     display: inline;
+    margin: 0;
+    padding: 0;
     margin-left: 3px;
+    padding-left: 1px;
 }
 
 #root .chatbox .feed .user-chatbox {
     margin: 0;
+    padding: 5px 0;
+}
+
+#root .chatbox .feed .user-chatbox p {
+    margin: 0;
     padding: 0;
 }
+
 /**************** Chatbox Ends **************/
 
 
@@ -438,13 +566,80 @@
 /**************** Owner Profile Ends ******************/
 
 
+
+
+/******************* Acoount Page Starts *****************/
+.account-page-outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.account-page-outer .account-page-inner {
+    width: 700px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.account-page-outer .account-page-inner .home-link {
+    font-size: 12px;
+    padding: 8px;
+}
+
+.account-page-outer .account-page-inner .home-link p {
+    padding: 0;
+    margin: 0;
+}
+
+.account-page-outer .account-page-inner .user-profile {
+    padding: 10px 20px;
+}
+
+
+.user-profile .user-name-img img {
+    height: 45px;
+}
+
+.user-profile .user-name-img p {
+    display: inline;
+}
+
+.account-page-outer .account-page-inner .user-profile hr.main-hr {
+    border: 0;
+    border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+.account-page-outer .account-page-inner .user-profile-details {
+    font-size: 13px;
+}
+
+.account-page-outer .account-page-inner .user-profile-details p span {
+    font-weight: 500;
+}
+
+.account-page-outer .account-page-inner .user-profile-details p {
+    padding: 0;
+    margin: 8px 0;
+}
+
+.user-profile-details .p-br {
+    border: 0;
+    margin: 10px 0;
+    border-top: 1px solid #b1b1b1;
+}
+/******************* Account Page Ends *******************/
+
+
+
+
 /*********** Footer Starts **************/
 .footer {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 70px;
+    height: 60px;
     background-color: #041C32;
     color: #fff;
     z-index: 1;
