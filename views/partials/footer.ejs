@@ -1,6 +1,7 @@
 
 
 <!-- Mongalmoy Profile -->
+
 <div class="owner-profile" id="mongalmoyProfile">
 
   <i onclick="closePopup1()" class="bx bx-x"></i>
@@ -51,7 +52,7 @@
 
 
     <div class="footer" onclick="closePopup1()">
-        <p>Made with &#10084;&#65039; By <span class="span-1" onmouseenter="openPopup1()" onclick="closePopup1()">Mongalmoy Karmakar</span> & <span class="span-2" onmouseenter="openPopup2()" onclick="closePopup2()">Souvik Sarkhel</span></p>
+        <p>Made with &#10084;&#65039; By <span class="span-1" onmousemove="closePopup2()" onmouseenter="openPopup1()" onclick="closePopup1()">Mongalmoy Karmakar</span> & <span class="span-2" onmouseenter="openPopup2()" onclick="closePopup2()" onmousemove="closePopup1()">Souvik Sarkhel</span></p>
     </div>
 </div>
 
@@ -86,6 +87,18 @@
         document.getElementById('sendButton').style.color = '#929292';
       } else {
         document.getElementById('sendButton').style.color = '#0734fd';
+      }
+    }
+    function handleClickOnLike(evt) {
+      // document.querySelectorAll(".add-like").style.fontSize = "20px";
+    }
+    function displayCommentSection() {
+      const element = document.querySelectorAll(".start-comment");
+      element.onclick = true;
+      console.log(element);
+      for(let i=0; i<element.length; i++){
+        element.style.visibility = "visible";
+        element.style.height = "60px";
       }
     }
 </script>

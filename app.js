@@ -80,6 +80,17 @@ app.get("/account", function(req, res) {
     res.redirect("/login");
   }
 });
+app.get("/accountedit", function(req, res) {
+  if (req.isAuthenticated()){
+    //console.log(req.user);
+    res.render("accountedit",{user:req.user});
+
+  } else {
+    res.redirect("/login");
+  }
+});
+
+
 
 app.get("/feed", function(req, res){
   if (req.isAuthenticated()){

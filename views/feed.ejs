@@ -4,32 +4,43 @@
 <div class="chatbox" id="chatbox">
 
   <div>
-
     <% allposts.forEach(function(post){ %>
     <div class="feed">
-
       <div class="user-profile-container">
-
         <div class="user-img">
           <img src="/images/avatar.png" alt="">
         </div>
-
         <div class="user-info">
           <p class="user-name"><%=post.postedby.name%></p>
           <p class="user-bio">Currently Working At: <strong><%=post.postedby.currorg%></strong></p>
-          <p class="user-bio">JGEC <%=post.postedby.department%>'<%=post.postedby.year%></p>
+          <p class="user-bio">JGEC<%=post.postedby.department%><%=post.postedby.year%></p>
         </div>
-
         <div class="post-time-div">
           <i class="fas fa-globe-asia"></i>
           <p><%= post.time %></p>
         </div>
-
       </div>
-
-      <hr style="margin:0">
       <div class="user-chatbox">
         <p><%=post.postedtext%></p>
+      </div>
+      <hr style="margin: 4px 0; border: 0; height: 1px;">
+      <div class="comment-like-share">
+        <div onclick="handleClickOnLike()"> <i class='add-like bx bxs-like'></i> <span id="countLike"></span> <span>Like</span> </div>
+        <div onclick="displayCommentSection()"> <i class='bx bx-comment-detail'></i> <span id="countComment"></span> <span>Comment</span> </div>
+        <div > <i class="fal fa-share"></i> <span id="countShare"></span> <span>Share</span></div>
+      </div>
+      <div class="start-comment">
+        <div class="container-img">
+          <img src="/images/avatar.png" alt="_image">
+        </div>
+        <div class="input-comment">
+          <input type="text" name="inputComment">
+
+          <div class="comment-img-emoji">
+            <div class="comment-img"> <i class="far fa-smile"></i> </div>
+            <div class="comment-emoji"> <i class="fas fa-image"></i> </div>
+          </div>
+        </div>
       </div>
     </div>
     <% }) %>
@@ -83,7 +94,6 @@
     </div>
 
 </div>
-
 
 
 

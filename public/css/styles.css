@@ -21,19 +21,58 @@
 .container-fluid .navbar-brand {
     width: 100%;
     font-size: 35px;
+    width: 200px;
 }
 
 .container-fluid img {
     height: 50px;
     margin-left: 20px;
     padding-right: 10px;
+    border-radius: 50%;
+    border: none;
+    outline: none;
 }
 
 #navbarNav {
-    margin-left: 1000px;
     font-size: 25px;
+    width: 100%;
+    position: relative;
 }
 
+#navbarNav ul {
+    position: absolute;
+    right: 10px;
+}
+
+#navbarNav ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#navbarNav ul li img {
+    padding: 8px 0;
+    margin: 0;
+    padding-right: 0;
+    border-radius: 50%;
+    font-size: 15px;
+}
+
+#navbarNav ul .nav-link-img {
+    padding-right: 0;
+}
+
+#navbarNav ul li a span{
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 0;
+}
+
+#navbarNav ul li a i {
+    font-size: 24px;
+    font-weight: 700px;
+    color: #000;
+}
 
 
 
@@ -337,10 +376,12 @@
 #root .chatbox .feed {
     width: 600px;
     background-color: #fff;
-    color: rgb(73, 71, 71);
+    color: #494747;
     padding: 8px 10px;
+    padding-bottom: 4px;
     border-radius: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
 }
 
 #root .chatbox .feed .user-profile-container {
@@ -423,6 +464,93 @@
     padding: 0;
 }
 
+#root .chatbox .feed .comment-like-share {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#root .chatbox .feed .comment-like-share div {
+    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    font-size: 18px;
+    transition-delay: 0.1s;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#root .chatbox .feed .comment-like-share div:hover {
+    background-color: #ddd;
+}
+
+#root .chatbox .feed .comment-like-share div span {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+#root .chatbox .feed .start-comment {
+    display: flex;
+    padding: 10px 5px;
+    padding-top: 0;
+    visibility: hidden;
+    height: 0;
+}
+
+#root .chatbox .feed .start-comment .container-img {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#root .chatbox .feed .start-comment .container-img img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+#root .chatbox .feed .start-comment .input-comment {
+    height: 50px;
+    width: calc(100% - 50px);
+    padding: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#root .chatbox .feed .start-comment .input-comment input {
+    width: 100%;
+    height: 40px;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    padding: 5px 15px;
+    color: #2c2c2c;
+}
+
+.start-comment .input-comment .comment-img-emoji {
+    position: absolute;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.comment-img-emoji div {
+    margin: 5px 6px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+}
 /**************** Chatbox Ends **************/
 
 
@@ -482,12 +610,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ddd;
     margin-right: 10px;
     color: #2e2e2e;
+    border: 2px solid #ddd;
+    background-color: #fff;
 }
 
-
+.start-post-div .post-body .start-post-content input:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
 
 .post-box-container {
     width: 500px;
@@ -608,13 +740,17 @@
     position: fixed;
 }
 
-#root .owner-profile i {
+#root .owner-profile .bx-x {
     position: absolute;
-    color: #fff;
+    color: #dddddd;
     font-size: 25px;
     right: 15px;
     top: 15px;
     cursor: pointer;
+}
+
+#root .owner-profile .bx-x:hover {
+    color: #fff;
 }
 
 #mongalmoyProfile {
@@ -693,14 +829,15 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 0;
+    width: 100%;
+    bottom: 30px;
 }
 
 .owner-profile .social-media-details ul {
     display: flex;
     list-style: none;
     padding: 0;
-    margin: 0 0 20px 100px;
+    margin: 0;
 }
 
 .social-media-details ul li a {
@@ -710,7 +847,7 @@
 
 .social-media-details ul li i{
     font-size: 30px;
-    margin: 0 15px;
+    margin: 0 25px;
 }
 /**************** Owner Profile Ends ******************/
 
@@ -723,12 +860,26 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 .account-page-outer .account-page-inner {
     width: 700px;
     background-color: #fff;
     border-radius: 5px;
+    position: relative;
+}
+
+.account-page-outer .account-page-inner .edit-link {
+    color: #1b1b1b;
+}
+
+.account-page-outer .account-page-inner .fa-pencil-alt {
+    position: absolute;
+    font-size: 15px;
+    top: 25px;
+    right: 35px;
+    cursor: pointer;
 }
 
 .account-page-outer .account-page-inner .home-link {
@@ -761,6 +912,29 @@
 
 .account-page-outer .account-page-inner .user-profile-details {
     font-size: 13px;
+    padding-bottom: 20px;
+}
+
+.account-page-outer .account-page-inner .user-profile-details strong {
+    font-size: 13px;
+}
+
+.user-profile-details .separate-div {
+    margin-bottom: 15px;
+    padding: 0 16px;
+}
+
+.account-page-outer .account-page-inner .user-profile-details input {
+    outline: none;
+    width: 300px;
+    margin-left: 10px;
+    padding: 4px 5px;
+    border: 1px solid #b9b9b9;
+    color: #000;
+}
+
+.account-page-outer .account-page-inner .user-profile-details input:focus {
+    border-bottom: 1px solid #a0a0a0;
 }
 
 .account-page-outer .account-page-inner .user-profile-details p span {
@@ -776,6 +950,27 @@
     border: 0;
     margin: 10px 0;
     border-top: 1px solid #b1b1b1;
+}
+.account-page-inner .user-profile .save-button {
+    padding: 10px;
+    position: relative;
+    height: 50px;
+}
+
+.save-button button {
+    position: absolute;
+    left: 16px;
+    padding: 8px 24px;
+    bottom: 20px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    background-color: #3434cf;
+    opacity: 0.8;
+}
+
+.save-button button:hover {
+    opacity: 1;
 }
 /******************* Account Page Ends *******************/
 
