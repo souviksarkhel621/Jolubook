@@ -1,5 +1,4 @@
-<%- include('partials/header',{myname:currentuser}); -%>
-
+<%- include('partials/header',{user:currentuser}); -%>
 
 <div class="chatbox" id="chatbox">
 
@@ -8,7 +7,7 @@
     <div class="feed">
       <div class="user-profile-container">
         <div class="user-img">
-          <img src="/images/avatar.png" alt="">
+          <img src="./uploads/<%=post.postedby.dp%>" alt="">
         </div>
         <div class="user-info">
           <p class="user-name"><%=post.postedby.name%></p>
@@ -63,9 +62,9 @@
     <hr>
 
     <div class="post-name-img">
-      <img src="/images/avatar.png" alt="_image">
+      <img src="./uploads/<%=currentuser.dp%>" alt="_image">
       <div class="post-name">
-        <%=currentuser%>
+        <%=currentuser.name%>
       </div>
     </div>
 
@@ -85,7 +84,7 @@
     <div class="post-body">
 
       <div class="start-post-img">
-        <img src="/images/avatar.png" alt="_userimage">
+        <img src="./uploads/<%=currentuser.dp%>" alt="_userimage">
       </div>
       <div class="start-post-content">
         <input onfocus="openForm()" placeholder="Add a post">

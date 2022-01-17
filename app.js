@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const multer  = require('multer');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -8,8 +9,34 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
-app.set('view engine', 'ejs');
 
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname + '-' + Date.now() + '.jpeg'); //Appending extension
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
+
+app.set('view engine', 'ejs');
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.use(session({
@@ -39,7 +66,8 @@ const userSchema = mongoose.Schema({
   department: String,
   currorg:String,
   username: String,
-  password: String
+  password: String,
+  dp:String
 });
 const postSchema = mongoose.Schema({
   postedtext:String,
@@ -80,7 +108,7 @@ app.get("/account", function(req, res) {
     res.redirect("/login");
   }
 });
-app.get("/accountedit", function(req, res) {
+app.get("/editaccount", function(req, res) {
   if (req.isAuthenticated()){
     //console.log(req.user);
     res.render("accountedit",{user:req.user});
@@ -89,6 +117,43 @@ app.get("/accountedit", function(req, res) {
     res.redirect("/login");
   }
 });
+
+app.post("/editaccount",upload.single('newImg') ,function(req, res) {
+console.log(req.file);
+  if (req.isAuthenticated()){
+    //console.log(req.user);
+    User.updateOne({
+              username: req.body.userEmail
+            },{
+              $set: {
+                currorg:req.body.currPosition,
+                dp:req.file.filename
+              }
+            }, {
+              upsert: true
+            }, function(err) {
+              if (err) console.log(err);
+              else console.log("User Details Updated");
+            })
+    req.user.currorg=req.body.currPosition;
+    req.user.dp=req.file.filename;
+
+
+
+
+
+    res.render("account",{user:req.user});
+
+  } else {
+    res.redirect("/login");
+  }
+
+
+
+});
+
+
+
 
 
 
@@ -101,7 +166,7 @@ app.get("/feed", function(req, res){
       } else {
         if (foundPosts) {
           //console.log(foundPosts);
-          res.render("feed",{allposts: foundPosts.reverse(),currentuser:req.user.name});
+          res.render("feed",{allposts: foundPosts.reverse(),currentuser:req.user});
         }
       }
     });
@@ -140,7 +205,7 @@ app.post("/register",function(req,res){
   year: req.body.year,
   department: req.body.department,
   currorg:req.body.currorg,
-  username: req.body.username}, req.body.password, function(err, user){
+  username: req.body.username,dp:"avater.png"}, req.body.password, function(err, user){
       if (err) {
         console.log(err);
         res.redirect("/register");
