@@ -7,6 +7,7 @@ const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const findOrCreate = require('mongoose-findorcreate');
+const fs = require('fs');
 
 const app = express();
 
@@ -167,7 +168,7 @@ app.post("/editaccount", upload.single('newImg'), function(req, res) {
       upsert: true
     }, function(err) {
       if (err) console.log(err);
-      else console.log("User Details Updated");
+      //else console.log("User Details Updated");
     })
     if(req.file)
     {
@@ -193,6 +194,20 @@ app.post("/editaccount", upload.single('newImg'), function(req, res) {
       }, function(err) {
         if (err) console.log(err);
       })
+      if(req.user.dp!="avater.png")
+      {
+        const pathToFile = "./uploads/"+req.user.dp;
+
+        fs.unlink(pathToFile, function(err) {
+          if (err) {
+            throw err
+          } else {
+            //console.log("Successfully deleted the file.")
+          }
+        })
+      }
+
+
       req.user.dp = req.file.filename;
 
     }
@@ -384,6 +399,7 @@ app.post("/addpost", function(req, res) {
 
 
 app.get("/", function(req, res) {
+
   if (req.isAuthenticated()) {
     res.redirect("/feed");
   } else {
