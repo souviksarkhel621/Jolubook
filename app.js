@@ -194,7 +194,7 @@ app.post("/editaccount", upload.single('newImg'), function(req, res) {
       }, function(err) {
         if (err) console.log(err);
       })
-      if(req.user.dp!="avater.png")
+      if(req.user.dp!=="avater.jpeg")
       {
         const pathToFile = "./uploads/"+req.user.dp;
 
@@ -269,10 +269,10 @@ app.get("/feed", function(req, res) {
                   authdept:fu.department
                 };
                 articles.push(post);
-                if(articles.length===foundPosts.length) res.render("feed", {
+                if(articles.length===foundPosts.length) {res.render("feed", {
                   allposts: articles.reverse(),
                   currentuser: req.user
-                });;
+                });}
               }
             });
           }
