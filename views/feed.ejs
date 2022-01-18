@@ -1,26 +1,25 @@
 <%- include('partials/header',{user:currentuser}); -%>
 
 <div class="chatbox" id="chatbox">
-
   <div>
     <% allposts.forEach(function(post){ %>
     <div class="feed">
       <div class="user-profile-container">
         <div class="user-img">
-          <img src="./uploads/<%=post.postedby.dp%>" alt="">
+          <img src="./uploads/<%=post.authordp%>" alt="">
         </div>
         <div class="user-info">
-          <p class="user-name"><%=post.postedby.name%></p>
-          <p class="user-bio">Currently Working At: <strong><%=post.postedby.currorg%></strong></p>
-          <p class="user-bio">JGEC<%=post.postedby.department%><%=post.postedby.year%></p>
+          <p class="user-name"><%=post.author%></p>
+          <p class="user-bio">Currently Working At: <strong><%=post.authorg%></strong></p>
+          <p class="user-bio">JGEC&nbsp&nbsp<%=post.authdept%>&nbsp'<%=post.authpassyear%></p>
         </div>
         <div class="post-time-div">
           <i class="fas fa-globe-asia"></i>
-          <p><%= post.time %></p>
+          <p><%= post.posttime %></p>
         </div>
       </div>
       <div class="user-chatbox">
-        <p><%=post.postedtext%></p>
+        <p><%=post.post%></p>
       </div>
       <hr style="margin: 4px 0; border: 0; height: 1px;">
       <div class="comment-like-share">
@@ -30,11 +29,10 @@
       </div>
       <div class="start-comment">
         <div class="container-img">
-          <img src="/images/avatar.png" alt="_image">
+          <img src="/images/<%=currentuser.dp%>" alt="_image">
         </div>
         <div class="input-comment">
           <input type="text" name="inputComment">
-
           <div class="comment-img-emoji">
             <div class="comment-img"> <i class="far fa-smile"></i> </div>
             <div class="comment-emoji"> <i class="fas fa-image"></i> </div>

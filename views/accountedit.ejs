@@ -10,7 +10,7 @@
         <div class="user-profile">
 
             <div class="user-name-img">
-                <img src="/images/avatar.png" alt="_image">
+                <img src="/uploads/<%=accountholder.dp%>" alt="_image">
                 <p>&emsp;<strong><%=user.name%></strong></p>
                 <!-- <div class="user-img">
                     <img src="/images/mongalmoy_img.jpg" alt="_image">
@@ -34,36 +34,46 @@
 
                     <div class="separate-div">
                         <label for="name"><strong>Name:</strong></label>
-                        <input name="userName" type="text" class="name"  value="<%=user.name%>" readonly>
+                        <input name="name" type="text" class="name"  value="<%=accountholder.name%>" readonly>
                     </div>
                     <div class="separate-div">
                         <strong>Email:</strong>
-                        <input name="userEmail" type="email" value="<%=user.username%>" readonly>
+                        <input name="username" type="email" value="<%=accountholder.username%>" readonly>
                     </div>
-
                     <div class="separate-div">
-                        <strong>State:</strong>
-                        <input name="userState" type="text">
+                        <strong>Mobile No:</strong>
+                        <input name="mobile" type="text" value="<%=accountholder.mobile%>">
+                    </div>
+                    <div class="separate-div">
+                        <strong>Currently Working At:</strong>
+                        <input name="currorg" type="text" value="<%=accountholder.currorg%>">
                     </div>
 
                     <div class="separate-div">
                         <strong>Current City:</strong>
-                        <input name="userCity" type="text">
+                        <input name="currcity" type="text" value="<%=accountholder.currcity%>">
                     </div>
 
                     <div class="separate-div">
-                        <strong>Current Position:</strong>
-                        <input name="currPosition" type="text" value="<%=user.currorg%>">
+                        <strong>Current Country:</strong>
+                        <input name="country" type="text" value="<%=accountholder.country%>">
                     </div>
-
+                    <div class="separate-div">
+                        <strong>Hometown:</strong>
+                        <input name="hometown" type="text" value="<%=accountholder.hometown%>">
+                    </div>
+                    <div class="separate-div">
+                        <strong>Previously Worked At:</strong>
+                        <input name="prevorg" type="text" value="<%=accountholder.prevorg%>">
+                    </div>
                     <div class="separate-div">
                         <strong>Passout Year:</strong>
-                        <input name="passoutYear" type="text" value="<%=user.year%>" readonly>
+                        <input name="year" type="text" value="<%=accountholder.year%>" readonly>
                     </div>
 
                     <div class="separate-div">
                         <strong>Department:</strong>
-                        <input name="passoutDept" type="text" value=<%=user.department%> readonly>
+                        <input name="department" type="text" value=<%=accountholder.department%> readonly>
                     </div>
                 </div>
 
