@@ -21,6 +21,9 @@
       <div class="user-chatbox">
         <p><%=post.post%></p>
       </div>
+      <% if(post.postfile!=""){ %>
+        <img style="width:300px" src="./uploads/<%=post.postfile%>" alt="Attached File">
+        <% }%>
       <hr style="margin: 4px 0; border: 0; height: 1px;">
       <div class="comment-like-share">
         <div onclick="handleClickOnLike()"> <i class='add-like bx bxs-like'></i> <span id="countLike"></span> <span>Like</span> </div>
@@ -48,7 +51,7 @@
 
 
 <div class="post-box-container" id="sendFormDiv">
-  <form action="/addpost" method="POST">
+  <form action="/addpost" method="POST" enctype="multipart/form-data">
     <div class="post-heading">
       <div>
         <p>Create a post</p>
@@ -73,6 +76,55 @@
     <div class="send-button">
       <button type="submit" ><i id="sendButton" class='bx bxs-send'></i></button>
     </div>
+
+    <div class="attach-icon-div" id="attachIcons">
+      <ul>
+
+        <!-- <li>
+          <div onclick="handleCaptureButton()" id="start-camera" class="camera-holder">
+            <i class="fas fa-camera"></i>
+          </div>
+          <span class="tooltip">Camera</span>
+        </li> -->
+
+        <li>
+          <div onclick="handleAttachImage()" class="image-holder">
+            <i class="fas fa-image"></i>
+            <input class="input-file"  type="file" name="postAttachImage" accept=".png, .jpeg, .jpg" >
+          </div>
+          <span class="tooltip">Image</span>
+        </li>
+
+         <li>
+          <div onclick="handleAttachDocument()" class="document-holder">
+            <i class="far fa-file"></i>
+            <input class="input-file" type="file" name="postAttachDocument" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" >
+          </div>
+          <span class="tooltip">Document</span>
+        </li>
+
+        <!-- <li>
+          <div onclick="handleAttachAudio()" class="audio-holder">
+            <i class="fas fa-headphones-alt"></i>
+            <input class="input-file" type="file" name="postAttachAudio" accept=".mp3, .wav" >
+          </div>
+          <span class="tooltip">Audio</span>
+        </li> -->
+
+      </ul>
+
+    </div>
+
+
+    <!-- <video id="video" width="380" height="280" playsinline autoplay></video>
+    <button id="capture">Capture</button>
+    <canvas id="canvas" width="380" height="280"></canvas> -->
+
+
+    <div class="attach" onclick="dispalyAttachIcons()">
+      <i class="far fa-paperclip"></i>
+    </div>
+
   </form>
 </div>
 

@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     cb(null, './uploads/');
   },
   filename: function(req, file, cb) {
-    cb(null, file.originalname + '-' + Date.now() + '.jpeg'); //Appending extension
+    cb(null, Date.now()+'-'+file.originalname);
   }
 });
 
@@ -86,6 +86,7 @@ const postSchema = mongoose.Schema({
   postedtext: String,
   time: String,
   postedby: String,
+  postfile:String,
   creatorusername: String
 });
 
@@ -241,8 +242,12 @@ app.get("/feed", function(req, res) {
       if (err) {
         console.log(err);
       } else {
+        if(foundPosts.length===0) {res.render("feed", {
+          allposts: foundPosts.reverse(),
+          currentuser: req.user
+        });}
         //console.log(foundPosts);
-        if (foundPosts) {
+        else {
           var articles = [];
           for (var i = 0; i < foundPosts.length; i++) {
             let obj = foundPosts[i];
@@ -266,7 +271,8 @@ app.get("/feed", function(req, res) {
                   authcity: fu.currcity,
                   authcountry:fu.country,
                   authpassyear:fu.year,
-                  authdept:fu.department
+                  authdept:fu.department,
+                  postfile:obj.postfile
                 };
                 articles.push(post);
                 if(articles.length===foundPosts.length) {res.render("feed", {
@@ -360,8 +366,9 @@ app.post("/register", function(req, res) {
 
 });
 
-app.post("/addpost", function(req, res) {
+app.post("/addpost", upload.single('postAttachImage'),function(req, res) {
   if (req.isAuthenticated()) {
+    //console.log(req.file);
     const currdate = new Date();
     const formattedDate = currdate.toLocaleDateString('en-GB', {
       day: 'numeric',
@@ -375,12 +382,18 @@ app.post("/addpost", function(req, res) {
 
 
     var datetime = formattedDate + " " + formattime;
-    if (req.body.inputText !== '') {
+    var postfilename="";
+    if(req.file)
+    {
+      postfilename=req.file.filename;
+    }
+    if (req.body.inputText !== '' ||  postfilename!="") {
       var newPost = new Post({
         postedtext: req.body.inputText,
         postedby: req.user.name,
         time: datetime,
-        creatorusername: req.user.username
+        creatorusername: req.user.username,
+        postfile:postfilename
       })
       newPost.save(function(err) {
         if (err) {

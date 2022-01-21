@@ -51,8 +51,8 @@
 
 
 
-    <div class="footer" onclick="closePopup1()">
-        <p>Made with &#10084;&#65039; By <span class="span-1" onmousemove="closePopup2()" onmouseenter="openPopup1()" onclick="closePopup1()">Mongalmoy Karmakar</span> & <span class="span-2" onmouseenter="openPopup2()" onclick="closePopup2()" onmousemove="closePopup1()">Souvik Sarkhel</span></p>
+    <div class="footer">
+        <p>Made with &#10084;&#65039; By <span class="span-1" onclick="openPopup1()" onmousemove="closePopup2()" >Mongalmoy Karmakar</span> & <span class="span-2"  onclick="openPopup2()" onmousemove="closePopup1()">Souvik Sarkhel</span></p>
     </div>
 </div>
 
@@ -101,6 +101,60 @@
         element.style.height = "60px";
       }
     }
+
+    function dispalyAttachIcons() {
+      let element = document.getElementById("attachIcons");
+
+      if(element.style.display === "none") {
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    }
+
+    function handleCaptureButton() {
+      document.getElementById('capture').style.display = "block";
+    }
+
+    function handleAttachImage() {
+      document.querySelectorAll('.input-file')[0].click();
+    }
+
+    function handleAttachDocument() {
+      document.querySelectorAll('.input-file')[1].click();
+    }
+
+    function handleAttachAudio() {
+      document.querySelectorAll('.input-file')[2].click();
+    }
+
+
+    const cameraButton = document.getElementById('start-camera');
+    const video = document.getElementById('video');
+    const capture = document.getElementById('capture');
+    const canvas = document.getElementById('canvas');
+
+    cameraButton.addEventListener('click', async function() {
+        try {
+          const videoSrc = await navigator.mediaDevices.getUserMedia( {video: {width: 380, height: 280}} );
+          video.srcObject = videoSrc;
+        }
+        catch(e) {
+          console.log(e.toString());
+        }
+
+        const context = canvas.getContext('2d');
+        capture.addEventListener('click', function() {
+          context.drawImage(video, 0, 0, 380, 280);
+          // console.log('hii');
+          // const imgUrlData = canvas.toDataUrl(images/jpeg);
+
+          // console.log(imgUrlData);
+        });
+
+    });
+
+
 </script>
 
 </body>
