@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'  || file.mimetype === 'video/mp4'  || file.mimetype === 'application/vnd.ms-powerpoint'  || file.mimetype === 'application/msword'   || file.mimetype === 'application/pdf'  || file.mimetype === 'application/octet-stream'    || file.mimetype === 'audio/x-wav'  || file.mimetype === 'audio/mpeg'){
     cb(null, true);
   } else {
     cb(null, false);
@@ -31,7 +31,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 5
+    fileSize: 1024 * 1024 * 500
   },
   fileFilter: fileFilter
 });
@@ -87,6 +87,7 @@ const postSchema = mongoose.Schema({
   time: String,
   postedby: String,
   postfile:String,
+  posttype:String,
   creatorusername: String
 });
 
@@ -272,7 +273,8 @@ app.get("/feed", function(req, res) {
                   authcountry:fu.country,
                   authpassyear:fu.year,
                   authdept:fu.department,
-                  postfile:obj.postfile
+                  postfile:obj.postfile,
+                  posttype:obj.posttype
                 };
                 articles.push(post);
                 if(articles.length===foundPosts.length) {res.render("feed", {
@@ -366,7 +368,7 @@ app.post("/register", function(req, res) {
 
 });
 
-app.post("/addpost", upload.single('postAttachImage'),function(req, res) {
+app.post("/addpost", upload.single('postfile'),function(req, res) {
   if (req.isAuthenticated()) {
     //console.log(req.file);
     const currdate = new Date();
@@ -383,9 +385,15 @@ app.post("/addpost", upload.single('postAttachImage'),function(req, res) {
 
     var datetime = formattedDate + " " + formattime;
     var postfilename="";
+    var posttype="0";
     if(req.file)
     {
       postfilename=req.file.filename;
+      if(req.file.mimetype.includes("application")) posttype="1";
+      else if(req.file.mimetype.includes("image")) posttype="2";
+      else if(req.file.mimetype.includes("video")) posttype="3";
+      else if(req.file.mimetype.includes("audio")) posttype="4";
+      //console.log(posttype);
     }
     if (req.body.inputText !== '' ||  postfilename!="") {
       var newPost = new Post({
@@ -393,7 +401,8 @@ app.post("/addpost", upload.single('postAttachImage'),function(req, res) {
         postedby: req.user.name,
         time: datetime,
         creatorusername: req.user.username,
-        postfile:postfilename
+        postfile:postfilename,
+        posttype:posttype
       })
       newPost.save(function(err) {
         if (err) {
