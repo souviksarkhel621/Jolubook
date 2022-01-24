@@ -237,58 +237,9 @@ app.post("/editaccount", upload.single('newImg'), function(req, res) {
 
 app.get("/feed", function(req, res) {
   if (req.isAuthenticated()) {
+    var condition={};
+    feedloader(req,res,condition);
 
-    Post.find({
-    }, function(err, foundPosts) {
-      if (err) {
-        console.log(err);
-      } else {
-        if(foundPosts.length===0) {res.render("feed", {
-          allposts: foundPosts.reverse(),
-          currentuser: req.user
-        });}
-        //console.log(foundPosts);
-        else {
-          var articles = [];
-          for (var i = 0; i < foundPosts.length; i++) {
-            let obj = foundPosts[i];
-            Person.findOne({
-              'username': obj.creatorusername
-            }, function(error, fu) {
-              if (error) console.log(error);
-              else {
-                /*console.log(obj);
-                console.log(fu);
-                console.log(obj);
-                console.log("--------------------");*/
-
-
-                var post = {
-                  author: obj.postedby,
-                  post: obj.postedtext,
-                  authordp: fu.dp,
-                  posttime: obj.time,
-                  authorg: fu.currorg,
-                  authcity: fu.currcity,
-                  authcountry:fu.country,
-                  authpassyear:fu.year,
-                  authdept:fu.department,
-                  postfile:obj.postfile,
-                  posttype:obj.posttype
-                };
-                articles.push(post);
-                if(articles.length===foundPosts.length) {res.render("feed", {
-                  allposts: articles.reverse(),
-                  currentuser: req.user
-                });}
-              }
-            });
-          }
-          //console.log(foundPosts);
-
-        }
-      }
-    });
 
 
   } else {
@@ -296,62 +247,62 @@ app.get("/feed", function(req, res) {
   }
 });
 
+
+const feedloader =(req,res,condition)=>
+{
+  Post.find(condition, function(err, foundPosts) {
+    if (err) {
+      console.log(err);
+    } else {
+      if(foundPosts.length===0) {res.render("feed", {
+        allposts: foundPosts.reverse(),
+        currentuser: req.user
+      });}
+      //console.log(foundPosts);
+      else {
+        var articles = [];
+        for (var i = 0; i < foundPosts.length; i++) {
+          let obj = foundPosts[i];
+          Person.findOne({
+            'username': obj.creatorusername
+          }, function(error, fu) {
+            if (error) console.log(error);
+            else {
+              var post = {
+                author: obj.postedby,
+                post: obj.postedtext,
+                authordp: fu.dp,
+                posttime: obj.time,
+                authorg: fu.currorg,
+                authcity: fu.currcity,
+                authcountry:fu.country,
+                authpassyear:fu.year,
+                authdept:fu.department,
+                postfile:obj.postfile,
+                posttype:obj.posttype,
+                postid:obj._id,
+                poster:obj.creatorusername
+              };
+              articles.push(post);
+              if(articles.length===foundPosts.length) {res.render("myposts", {
+                allposts: articles.reverse(),
+                currentuser: req.user
+              });}
+            }
+          });
+        }
+        //console.log(foundPosts);
+
+      }
+    }
+  });
+}
+
+
 app.get("/myposts", function(req, res) {
   if (req.isAuthenticated()) {
-
-    Post.find({
-    }, function(err, foundPosts) {
-      if (err) {
-        console.log(err);
-      } else {
-        if(foundPosts.length===0) {res.render("myposts", {
-          allposts: foundPosts.reverse(),
-          currentuser: req.user
-        });}
-        //console.log(foundPosts);
-        else {
-          var articles = [];
-          for (var i = 0; i < foundPosts.length; i++) {
-            let obj = foundPosts[i];
-            Person.findOne({
-              'username': obj.creatorusername
-            }, function(error, fu) {
-              if (error) console.log(error);
-              else {
-                /*console.log(obj);
-                console.log(fu);
-                console.log(obj);
-                console.log("--------------------");*/
-
-
-                var post = {
-                  author: obj.postedby,
-                  post: obj.postedtext,
-                  authordp: fu.dp,
-                  posttime: obj.time,
-                  authorg: fu.currorg,
-                  authcity: fu.currcity,
-                  authcountry:fu.country,
-                  authpassyear:fu.year,
-                  authdept:fu.department,
-                  postfile:obj.postfile,
-                  posttype:obj.posttype
-                };
-                articles.push(post);
-                if(articles.length===foundPosts.length) {res.render("myposts", {
-                  allposts: articles.reverse(),
-                  currentuser: req.user
-                });}
-              }
-            });
-          }
-          //console.log(foundPosts);
-
-        }
-      }
-    });
-
-
+    var condition={creatorusername:req.user.username};
+    feedloader(req,res,condition);
   } else {
     res.redirect("/login");
   }
@@ -385,6 +336,7 @@ app.get("/removedp", function(req, res) {
     if(req.user.dp!=="avater.jpeg")
     {
       itemdeleter(req.user.dp);
+
     }
 
 

@@ -49,28 +49,30 @@
                 </div>
               </div>
             </div>
-
-            <div class="item">
-              <div class="item-icon">
-                <i class="fas fa-pen"></i>
-              </div>
-              <div class="item-contents">
-                <div>
-                  <p>Edit post</p>
+            <% if(post.poster===currentuser.username){ %>
+              <div class="item">
+                <div class="item-icon">
+                  <i class="fas fa-pen"></i>
+                </div>
+                <div class="item-contents">
+                  <div>
+                    <p>Edit post</p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="item">
-              <div class="item-icon">
-                <i class="fas fa-trash-alt"></i>
-              </div>
-              <div class="item-contents">
-                <div>
-                  <p>Delete post</p>
+              <div class="item">
+                <div class="item-icon">
+                  <i class="fas fa-trash-alt"></i>
+                </div>
+                <div class="item-contents">
+                  <div>
+                    <p>Delete post</p>
+                  </div>
                 </div>
               </div>
-            </div>
+
+            <% }%>
 
           </div>
         </div>
