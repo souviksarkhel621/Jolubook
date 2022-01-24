@@ -296,6 +296,177 @@ app.get("/feed", function(req, res) {
   }
 });
 
+app.get("/myposts", function(req, res) {
+  if (req.isAuthenticated()) {
+
+    Post.find({
+    }, function(err, foundPosts) {
+      if (err) {
+        console.log(err);
+      } else {
+        if(foundPosts.length===0) {res.render("myposts", {
+          allposts: foundPosts.reverse(),
+          currentuser: req.user
+        });}
+        //console.log(foundPosts);
+        else {
+          var articles = [];
+          for (var i = 0; i < foundPosts.length; i++) {
+            let obj = foundPosts[i];
+            Person.findOne({
+              'username': obj.creatorusername
+            }, function(error, fu) {
+              if (error) console.log(error);
+              else {
+                /*console.log(obj);
+                console.log(fu);
+                console.log(obj);
+                console.log("--------------------");*/
+
+
+                var post = {
+                  author: obj.postedby,
+                  post: obj.postedtext,
+                  authordp: fu.dp,
+                  posttime: obj.time,
+                  authorg: fu.currorg,
+                  authcity: fu.currcity,
+                  authcountry:fu.country,
+                  authpassyear:fu.year,
+                  authdept:fu.department,
+                  postfile:obj.postfile,
+                  posttype:obj.posttype
+                };
+                articles.push(post);
+                if(articles.length===foundPosts.length) {res.render("myposts", {
+                  allposts: articles.reverse(),
+                  currentuser: req.user
+                });}
+              }
+            });
+          }
+          //console.log(foundPosts);
+
+        }
+      }
+    });
+
+
+  } else {
+    res.redirect("/login");
+  }
+});
+
+
+app.get("/removedp", function(req, res) {
+  if (req.isAuthenticated()) {
+    Person.updateOne({
+      username: req.user.username
+    }, {
+      $set: {
+        dp: "avater.jpeg"
+      }
+    }, {
+      upsert: true
+    }, function(err) {
+      if (err) console.log(err);
+    })
+    User.updateOne({
+      username: req.user.username
+    }, {
+      $set: {
+        dp: "avater.jpeg"
+      }
+    }, {
+      upsert: true
+    }, function(err) {
+      if (err) console.log(err);
+    })
+    if(req.user.dp!=="avater.jpeg")
+    {
+      itemdeleter(req.user.dp);
+    }
+
+
+    req.user.dp = "avater.jpeg";
+    res.redirect("/account");
+
+  } else {
+    res.redirect("/login");
+  }
+});
+
+app.get("/deleteaccount", function(req, res) {
+  if (req.isAuthenticated()) {
+  Post.find({creatorusername:req.user.username}, function(err, foundPosts) {
+    if (err) {
+      console.log(err);
+    } else {
+      for(var i = 0; i < foundPosts.length; i++)
+      {
+        let obj=foundPosts[i];
+        //console.log(obj.postfile);
+        if(obj.postfile!="")
+        {
+          itemdeleter(obj.postfile);
+        }
+      }
+    }});
+    Post.deleteMany({creatorusername:req.user.username}).then(result => {
+        //console.log("Records Deleted");
+    })
+    Person.deleteOne(
+    { username: req.user.username } // specifies the document to delete
+    ).then(result => {
+        //console.log("Records Deleted");
+    })
+    User.deleteOne(
+    { username: req.user.username } // specifies the document to delete
+    ).then(result => {
+        //console.log("Records Deleted");
+    })
+    if(req.user.dp!="avater.jpeg")
+    {
+      itemdeleter(req.user.dp);
+    }
+    res.redirect("/logout");
+
+  } else {
+    res.redirect("/login");
+  }
+});
+
+
+const itemdeleter =(itemlink)=>
+{
+  const pathToFile = "./uploads/"+itemlink;
+  fs.unlink(pathToFile, function(err) {
+    if (err) {
+      throw err
+    } else {
+    }
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

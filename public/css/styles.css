@@ -49,16 +49,26 @@
     justify-content: center;
 }
 
-#navbarNav ul li img {
-    padding: 8px 0;
-    margin: 0;
-    padding-right: 0;
-    border-radius: 50%;
-    font-size: 15px;
-}
 
 #navbarNav ul .nav-link-img {
-    padding-right: 0;
+    padding: 0;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#navbarNav ul .nav-link-img div {
+    height: 50px;
+    width: 50px;
+}
+
+#navbarNav ul .nav-link-img div img {
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    height: 45px;
+    width: 50px;
 }
 
 #userName{
@@ -70,7 +80,12 @@
 #navbarNav ul li a i {
     font-size: 24px;
     font-weight: 700px;
-    color: #000;
+    color: #202020;
+    opacity: 0.8;
+}
+
+#navbarNav ul li a:hover i {
+    opacity: 0.9;
 }
 
 #navlinkDropdown {
@@ -85,9 +100,6 @@
     cursor: pointer;
 }
 
-.envelop-container a {
-    text-decoration: none;
-}
 
 /***************** Enter Page Starts ******************/
 .enter-page img {
@@ -397,6 +409,10 @@
     border: 1px solid #ddd;
 }
 
+#root .chatbox .feed.active {
+    height: 230px;
+}
+
 #root .chatbox .feed .user-profile-container {
     position: relative;
     height: 75px;
@@ -412,6 +428,7 @@
 
 #root .chatbox .feed .user-profile-container .user-img img{
     height: 60px;
+    width: 60px;
     border-radius: 50%;
 }
 
@@ -467,6 +484,27 @@
     padding-left: 1px;
 }
 
+#root .chatbox .feed .user-profile-container .three-dots {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.user-profile-container .three-dots:hover {
+    background-color: #ddd;
+}
+
+.user-profile-container .three-dots i {
+    font-size: 25px;
+    cursor: pointer;
+}
+
 #root .chatbox .feed .user-chatbox {
     margin: 0;
     padding: 5px 0;
@@ -481,6 +519,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#root .chatbox .feed .comment-like-share .bxs-like {
+    height: 18px;
+    color: #494747;
+}
+
+#root .chatbox .feed.liked .comment-like-share .bxs-like {
+    transition: all 0.1s ease;
+    font-size: 19px;
+    color: #3333f3;
 }
 
 #root .chatbox .feed .comment-like-share div {
@@ -510,6 +559,10 @@
     padding-top: 0;
     visibility: hidden;
     height: 0;
+}
+
+#root .chatbox .feed.active .start-comment {
+    visibility: visible;
 }
 
 #root .chatbox .feed .start-comment .container-img {
@@ -563,6 +616,64 @@
     justify-content: center;
     cursor: pointer;
     border-radius: 50%;
+}
+
+#root .chatbox .feed .outer-display-edit-div {
+    z-index: 100;
+    position: absolute;
+    right: 5px;
+    top: 35px;
+    width: 250px;
+    background-color: #e7e7e7;
+    padding: 5px 0;
+    border-radius: 5px;
+    display: none;
+}
+
+#root .chatbox .feed .outer-display-edit-div .item {
+    display: flex;
+    height: 50px;
+    width: 100%;
+    cursor: pointer;
+}
+
+#root .chatbox .feed .outer-display-edit-div .item:hover {
+    background-color: #b8b8b8;
+}
+
+.outer-display-edit-div .item-icon {
+    width: 40px;
+    height: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outer-display-edit-div .item .item-icon i {
+    font-size: 18px;
+}
+
+.outer-display-edit-div .item .item-contents {
+    height: 50px;
+    width: calc(100% - 40px);
+    display: flex;
+    align-items: center;
+}
+
+.outer-display-edit-div .item .item-contents p {
+    padding: 0;
+    margin: 0;
+}
+
+.outer-display-edit-div .item .item-contents p:nth-child(1) {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.outer-display-edit-div .item .item-contents p:nth-child(2) {
+    font-size: 12px;
+    font-weight: 400;
 }
 /**************** Chatbox Ends **************/
 
@@ -1031,13 +1142,38 @@
     padding: 10px 20px;
 }
 
+.user-profile .user-name-img {
+    position: relative;
+}
+
 
 .user-profile .user-name-img img {
     height: 45px;
+    width: 45px;
 }
 
 .user-profile .user-name-img p {
     display: inline;
+}
+
+.user-profile .user-name-img .remove-dp {
+    position: absolute;
+    right: 5px;
+    bottom: 0px;
+}
+
+.user-profile .user-name-img .remove-dp button {
+    padding: 8px 24px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #fff;
+    background-color: #b6b90c;
+    opacity: 0.9;
+}
+
+.user-profile .user-name-img .remove-dp button:hover {
+    opacity: 1;
 }
 
 .account-page-outer .account-page-inner .user-profile hr.main-hr {
@@ -1102,9 +1238,32 @@
     color: #fff;
     background-color: #3434cf;
     opacity: 0.8;
+    width: 96px;
 }
 
 .save-button button:hover {
+    opacity: 1;
+}
+
+.delete-button {
+    padding: 10px;
+    position: relative;
+    height: 50px;
+}
+
+.delete-button button {
+    position: absolute;
+    right: 16px;
+    padding: 8px 24px;
+    bottom: 20px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    background-color: #e90000;
+    opacity: 0.8;
+}
+
+.delete-button button:hover {
     opacity: 1;
 }
 /******************* Account Page Ends *******************/

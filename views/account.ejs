@@ -19,6 +19,10 @@
                 <div class="user-name">
                     Mongalmoy Karmakar
                 </div> -->
+                <% if(accountholder.dp!="avater.jpeg"){ %>
+                    <div class="remove-dp"><button><a href="/removedp">Remove DP</a></button></div>
+                    <% }%>
+
             </div>
 
             <hr class="main-hr">
@@ -50,6 +54,10 @@
 
                 <p> <span>Batch:&emsp;&emsp;<strong><%=accountholder.year%></span></strong> </p>
                 <hr class="p-br">
+            </div>
+
+            <div class="delete-button">
+                <button><a href="/deleteaccount">Delete Account</a></button>
             </div>
         </div>
 

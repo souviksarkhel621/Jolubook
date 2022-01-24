@@ -22,7 +22,7 @@
 
   <body id="body">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" onclick="closePopup()" >
       <div class="container-fluid">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUplDP_5X_KftHW2YzHGWKCM1osaro8TRZ-U5499vM5ZjHtRyBGNBBwCq_f4AIhwf7KcY&usqp=CAU"></img>
         <a class="navbar-brand" href="feed"><strong>JoluBook</strong></a>
@@ -36,7 +36,9 @@
               <div class="envelop-container"> <a href=""><i class="fas fa-envelope"></i></a> </div>
             </li>
             <li class="nav-link nav-link-img">
-              <img src="./uploads/<%=user.dp%>" alt="_image">
+              <div>
+                <img src="./uploads/<%=user.dp%>" alt="_image">
+              </div>
             </li>
 
             <li class="nav-item dropdown">
@@ -46,6 +48,7 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="navlinkDropdown">
                 <li><a class="dropdown-item" href="account">Account</a></li>
                 <li><a class="dropdown-item" href="inbox">Inbox</a></li>
+                <li><a class="dropdown-item" href="/myposts">My Posts</a></li>
                 <li><a class="dropdown-item" href="/logout">Log out</a></li>
                 <!-- <i class='nav-link bx bx-log-out'></i> -->
               </ul>
