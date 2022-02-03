@@ -284,7 +284,7 @@ const feedloader =(req,res,condition)=>
                 poster:obj.creatorusername
               };
               articles.push(post);
-              if(articles.length===foundPosts.length) {res.render("myposts", {
+              if(articles.length===foundPosts.length) {res.render("feed", {
                 allposts: articles.reverse(),
                 currentuser: req.user
               });}
@@ -403,6 +403,84 @@ const itemdeleter =(itemlink)=>
 
 
 
+app.get("/user/*",function(req,res){
+  res.render('userpage',{currentuser: req.user});
+  //res.send("<h1>"+req.params[0]+"</h1>");
+});
+app.get("/post/*",function(req,res){
+  res.send("<h1>"+req.params[0]+"</h1>");
+});
+
+
+
+app.get("/jolutree/:year/:dept",function(req,res){
+  if(req.isAuthenticated()) {
+    let fetcher=req.params;
+    //console.log(fetcher.year);
+    var de=fetcher.dept.toUpperCase();
+    var condition={};
+    if(de=='*') condition={year:fetcher.year};
+    else condition={year:fetcher.year,department:de};
+    jolutreeloader(req,res,condition);
+  }else {
+    res.render('login');
+  }
+});
+app.get("/jolutree/:query",function(req,res){
+  if(req.isAuthenticated()) {
+    let fetcher=req.params.query;
+    //console.log(fetcher.query);
+    var condition={};
+    if(fetcher>=1961 && fetcher<=2050)
+    {condition={year:fetcher};}
+    else if(fetcher==='*') condition={};
+    else condition={department:fetcher.toUpperCase()};
+
+    jolutreeloader(req,res,condition);
+  }else {
+    res.render('login');
+  }
+});
+const jolutreeloader =(req,res,condition)=>
+{
+
+  Person.find(condition, function(err, foundPeople) {
+    if (err) {
+      console.log(err);
+    } else {
+    res.render('jolutreeyear', {people:foundPeople,currentuser: req.user});
+  }});
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/jolutree', function(req, res) {
+  if(req.isAuthenticated()) {
+    res.render('jolutree', {currentuser: req.user});
+  }else {
+    res.render('login');
+  }
+});
+/*
+app.get('/jolutree/:year', function(req, res) {
+  const year = req.params.year;
+  if(req.isAuthenticated()) {
+    res.render('jolutreeyear', {currentuser: req.user, year: year});
+  }else {
+    res.render('login');
+  }
+});
+*/
 
 
 

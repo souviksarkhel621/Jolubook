@@ -1,13 +1,15 @@
 <%- include('partials/header',{user:currentuser}); -%>
 
-<div class="chatbox" id="chatbox">
+<div class="chatbox" id="chatbox" onclick="closePopup()" >
   <div>
     <% allposts.forEach(function(post){ %>
     <div class="feed">
+
       <div class="user-profile-container">
         <div class="user-img">
           <img src="./uploads/<%=post.authordp%>" alt="">
         </div>
+
         <div class="user-info">
           <p class="user-name"><%=post.author%></p>
           <p class="user-bio">Currently Working At: <strong><%=post.authorg%></strong></p>
@@ -17,35 +19,100 @@
           <i class="fas fa-globe-asia"></i>
           <p><%= post.posttime %></p>
         </div>
+
+        <div onclick="displayEdit()" class="three-dots" >
+          <i class='bx bx-dots-horizontal-rounded'></i>
+        </div>
+
+        <div class="outer-display-edit-div" id="outer-display-edit-div">
+          <div class="inner-display-edit-div">
+
+            <div class="item">
+              <div class="item-icon">
+                <i class="far fa-bookmark"></i>
+              </div>
+              <div class="item-contents">
+                <div>
+                  <p>Save</p>
+                  <p>Save for later</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-icon">
+                <i class="fas fa-link"></i>
+              </div>
+              <div class="item-contents">
+                <div>
+                  <p>Copy link</p>
+                </div>
+              </div>
+            </div>
+            <% if(post.poster===currentuser.username){ %>
+              <div class="item">
+                <div class="item-icon">
+                  <i class="fas fa-pen"></i>
+                </div>
+                <div class="item-contents">
+                  <div>
+                    <p>Edit post</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="item-icon">
+                  <i class="fas fa-trash-alt"></i>
+                </div>
+                <div class="item-contents">
+                  <div>
+                    <p>Delete post</p>
+                  </div>
+                </div>
+              </div>
+
+            <% }%>
+
+          </div>
+        </div>
+
       </div>
+
       <div class="user-chatbox">
         <p><%=post.post%></p>
-      </div>
-      <% if(post.posttype==="1"){ %>
+        <% if(post.posttype==="1"){ %>
           <a target="_blank" href="./uploads/<%=post.postfile%>"><button type="button" name="button">Click Here to see the file</button></a>
           <% }%>
-      <% if(post.posttype==="2"){ %>
-        <img style="width:350px" src="./uploads/<%=post.postfile%>" alt="Attached Image">
+        <% if(post.posttype==="2"){ %>
+          <img style="width:350px" src="./uploads/<%=post.postfile%>" alt="Attached Image">
         <% }%>
-      <% if(post.posttype==="3"){ %>
-        <video width="400" height="300" controls>
-          <source src="./uploads/<%=post.postfile%>" type="video/mp4">
+        <% if(post.posttype==="3"){ %>
+          <video width="400" height="300" controls>
+            <source src="./uploads/<%=post.postfile%>" type="video/mp4">
           </video>
-            <% }%>
-      <% if(post.posttype==="4"){ %>
+        <% }%>
+        <% if(post.posttype==="4"){ %>
           <audio controls>
           <source src="./uploads/<%=post.postfile%>" type="audio/mpeg">
           </audio>
-      <% }%>
+        <% }%>
+      </div>
+
       <hr style="margin: 4px 0; border: 0; height: 1px;">
       <div class="comment-like-share">
-        <div onclick="handleClickOnLike()"> <i class='add-like bx bxs-like'></i> <span id="countLike"></span> <span>Like</span> </div>
-        <div onclick="displayCommentSection()"> <i class='bx bx-comment-detail'></i> <span id="countComment"></span> <span>Comment</span> </div>
+        <div onclick="handleClickOnLike(event)" > <i class='bx bxs-like'></i> <span id="countLike"></span> <span>Like</span> </div>
+        <div onclick="displayCommentSection(event)"> <i class='bx bx-comment-detail'></i> <span id="countComment"></span> <span>Comment</span> </div>
         <div > <i class="fal fa-share"></i> <span id="countShare"></span> <span>Share</span></div>
       </div>
+
+
+      <!--Start Comment Div-->
+
       <div class="start-comment">
         <div class="container-img">
-          <img src="/images/<%=currentuser.dp%>" alt="_image">
+          <!-- <img src="/images/<%=currentuser.dp%>" alt="_image"> -->
+          <img src="/images/mongalmoy_img.jpg" alt="_image">
         </div>
         <div class="input-comment">
           <input type="text" name="inputComment">
@@ -55,6 +122,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <% }) %>
 
