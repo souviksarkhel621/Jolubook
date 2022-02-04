@@ -403,9 +403,12 @@ const itemdeleter =(itemlink)=>
 
 
 
-app.get("/user/*",function(req,res){
-  res.render('userpage',{currentuser: req.user});
-  //res.send("<h1>"+req.params[0]+"</h1>");
+app.get("/user/:userid",function(req,res){
+  if(req.isAuthenticated()) {
+    res.render('userpage',{currentuser: req.user});
+  }else {
+    res.render('login');
+  }
 });
 app.get("/post/*",function(req,res){
   res.send("<h1>"+req.params[0]+"</h1>");
@@ -419,7 +422,7 @@ app.get("/jolutree/:year/:dept",function(req,res){
     //console.log(fetcher.year);
     var de=fetcher.dept.toUpperCase();
     var condition={};
-    if(de=='*') condition={year:fetcher.year};
+    if(de=="ALL") condition={year:fetcher.year};
     else condition={year:fetcher.year,department:de};
     jolutreeloader(req,res,condition);
   }else {
@@ -433,7 +436,7 @@ app.get("/jolutree/:query",function(req,res){
     var condition={};
     if(fetcher>=1961 && fetcher<=2050)
     {condition={year:fetcher};}
-    else if(fetcher==='*') condition={};
+    else if(fetcher==="all") condition={};
     else condition={department:fetcher.toUpperCase()};
 
     jolutreeloader(req,res,condition);
@@ -452,18 +455,6 @@ const jolutreeloader =(req,res,condition)=>
   }});
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 app.get('/jolutree', function(req, res) {
   if(req.isAuthenticated()) {
     res.render('jolutree', {currentuser: req.user});
@@ -471,17 +462,6 @@ app.get('/jolutree', function(req, res) {
     res.render('login');
   }
 });
-/*
-app.get('/jolutree/:year', function(req, res) {
-  const year = req.params.year;
-  if(req.isAuthenticated()) {
-    res.render('jolutreeyear', {currentuser: req.user, year: year});
-  }else {
-    res.render('login');
-  }
-});
-*/
-
 
 
 

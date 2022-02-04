@@ -3,7 +3,7 @@
 <div class="jolutree-year-page">
     <div style="width: 100%; margin-top: 10px;">
         <div class="jolutree-btn-grp">
-            <div class="jolutree-btn-grp__item"><a href="./*">All</a></div>
+            <div class="jolutree-btn-grp__item"><a href="./all">All</a></div>
             <div class="jolutree-btn-grp__item"><a href="./me">ME</a></div>
             <div class="jolutree-btn-grp__item"><a href="./ce">CE</a></div>
             <div class="jolutree-btn-grp__item"><a href="./ee">EE</a></div>
@@ -18,7 +18,7 @@
 
 
           <% people.forEach(function(user){ %>
-            <div class="jolutree-user-profile-container">
+            <div class="jolutree-user-profile-container" onclick="location.href="";>
                 <div class="jolutree-user-profile-img-container">
                     <div class="jolutree-user-profile-img-border">
                         <img src= "/uploads/<%=user.dp%>" alt="Profile Image">
@@ -42,6 +42,7 @@
                     </ul>
                 </div>
             </div>
+
             <% })%>
 
         </div>
