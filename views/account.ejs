@@ -34,6 +34,12 @@
                 <p> <span>Mobile:&emsp;&emsp;<strong><%=accountholder.mobile%></span> </strong></p>
                 <hr class="p-br">
 
+                <p> <span>Jolubook Userid:&emsp;&emsp;<strong><a href="user/<%=accountholder._id%>"><%=host%>/user/<%=accountholder._id%></a></span> </strong></p>
+                <hr class="p-br">
+
+                <p> <span>About You:&emsp;&emsp;<strong><%=accountholder.aboutyou%></span></strong> </p>
+                <hr class="p-br">
+
                 <p> <span>Currently Working At:&emsp;&emsp;<strong><%=accountholder.currorg%></span> </strong></p>
                 <hr class="p-br">
 
@@ -52,8 +58,24 @@
                 <p> <span>Dept:&emsp;&emsp;<strong><%=accountholder.department%></span> </strong></p>
                 <hr class="p-br">
 
-                <p> <span>Batch:&emsp;&emsp;<strong><%=accountholder.year%></span></strong> </p>
+                <p> <span>Batch:&emsp;&emsp;<strong><%=accountholder.year-4%> - <%=accountholder.year%></span></strong> </p>
+                <br>
+                <h3>Social</h3><hr class="p-br">
+                <p> <span>Facebook:&emsp;&emsp; <a href="<%=accountholder.facebook%>" target="_blank"><%=accountholder.facebook%></a><strong></span> </strong></p>
                 <hr class="p-br">
+
+                <p> <span>Linkedin:&emsp;&emsp; <a href="<%=accountholder.linkedin%>" target="_blank"><%=accountholder.linkedin%></a><strong></span> </strong></p>
+                <hr class="p-br">
+
+                <p> <span>Github:&emsp;&emsp; <a href="<%=accountholder.github%>" target="_blank"><%=accountholder.github%></a><strong></span> </strong></p>
+                <hr class="p-br">
+
+                <p> <span>Instagram:&emsp;&emsp; <a href="<%=accountholder.instagram%>" target="_blank"><%=accountholder.instagram%></a><strong></span> </strong></p>
+                <hr class="p-br">
+
+                <p> <span>Whatsapp:&emsp;&emsp;<strong><%=accountholder.whatsapp%></span></strong> </p>
+                <hr class="p-br">
+
             </div>
 
             <div class="delete-button">

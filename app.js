@@ -72,7 +72,9 @@ const userSchema = mongoose.Schema({
 const personSchema = mongoose.Schema({
   name: String,
   mobile: String,
+  whatsapp:String,
   year: String,
+  aboutyou:String,
   department: String,
   currorg: String,
   prevorg: String,
@@ -80,7 +82,13 @@ const personSchema = mongoose.Schema({
   currcity: String,
   hometown: String,
   username: String,
-  dp: String
+  facebook:String,
+  github:String,
+  instagram:String,
+  linkedin:String,
+  personalwebsite:String,
+  dp: String,
+  coverpic:String
 });
 const postSchema = mongoose.Schema({
   postedtext: String,
@@ -124,7 +132,7 @@ app.get("/account", function(req, res) {
       if(error) console.log(error);
       else{
         res.render("account", {
-          user: req.user,accountholder:fu
+          user: req.user,accountholder:fu,host:req.rawHeaders[1]
         });
       }
     });
@@ -164,7 +172,14 @@ app.post("/editaccount", upload.single('newImg'), function(req, res) {
         currorg: req.body.currorg,
         country: req.body.country,
         hometown: req.body.hometown,
-        prevorg: req.body.prevorg
+        prevorg: req.body.prevorg,
+        whatsapp: req.body.whatsapp,
+        facebook: req.body.facebook,
+        linkedin: req.body.linkedin,
+        aboutyou: req.body.aboutyou,
+        github: req.body.github,
+        instagram: req.body.instagram,
+        personalwebsite: req.body.personalwebsite
       }
     }, {
       upsert: true
@@ -404,9 +419,23 @@ const itemdeleter =(itemlink)=>
 
 
 app.get("/user/:userid",function(req,res){
-  if(req.isAuthenticated()) {
-    res.render('userpage',{currentuser: req.user});
-  }else {
+  if(req.isAuthenticated())
+    {Person.find({_id:req.params.userid}, function(err, foundUser) {
+      if (err) {
+        console.log(err);
+      } else {
+        if(foundUser.length===0) res.redirect("/jolutree");
+        else{
+          Post.find({creatorusername:foundUser[0].username}, function(err, foundPosts) {
+            if (err) {
+              console.log(err);
+            } else {
+            res.render("userpage",{user:foundUser[0],posts:foundPosts.reverse(),currentuser: req.user});
+          }});
+        }
+    }});
+  }
+  else {
     res.render('login');
   }
 });
@@ -519,11 +548,18 @@ app.post("/register", function(req, res) {
         currorg: req.body.currorg,
         username: req.body.username,
         mobile: "",
+        whatsapp: "",
+        facebook:"",
+        github:"",
+        instagram:"",
+        linkedin:"",
+        personalwebsite:"",
         prevorg: "",
         country: "",
         currcity: "",
         hometown: "",
-        dp: "avater.jpeg"
+        dp: "avater.jpeg",
+        aboutyou:"Hi Visitor I am a Jolubook User"
       })
       newPerson.save(function(err) {
         if (err) {

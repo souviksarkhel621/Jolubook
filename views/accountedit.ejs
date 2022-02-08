@@ -24,14 +24,15 @@
 
             <form method="POST" action="/editaccount" enctype="multipart/form-data">
                 <div class="user-profile-details">
-
+                  <h2>Profile Photo</h2>
                     <div class="separate-div">
                         <p><strong>Upload picture of yourself:</strong></p>
                         <p>Upload files of type jpeg, jpg, png only.</p>
                         <input name="newImg" type="file" accept=".png, .jpeg, .jpg">
                     </div>
-
-
+                    <hr>
+                    <h2>Personal Info</h2>
+                    <br>
                     <div class="separate-div">
                         <label for="name"><strong>Name:</strong></label>
                         <input name="name" type="text" class="name"  value="<%=accountholder.name%>" readonly>
@@ -74,6 +75,37 @@
                     <div class="separate-div">
                         <strong>Department:</strong>
                         <input name="department" type="text" value=<%=accountholder.department%> readonly>
+                    </div>
+                    <div class="separate-div">
+                        <strong>Something About You:</strong>
+                        <input name="aboutyou" type="text" value=<%=accountholder.aboutyou%>>
+                    </div>
+                    <hr>
+                    <h2>Social</h2>
+                    <br>
+                    <div class="separate-div">
+                        <strong>Facebook:</strong>
+                        <input name="facebook" type="text" value=<%=accountholder.facebook%>>
+                    </div>
+                    <div class="separate-div">
+                        <strong>Linkedin:</strong>
+                        <input name="linkedin" type="text" value=<%=accountholder.linkedin%>>
+                    </div>
+                    <div class="separate-div">
+                        <strong>Github:</strong>
+                        <input name="github" type="text" value=<%=accountholder.github%>>
+                    </div>
+                    <div class="separate-div">
+                        <strong>Whatsapp:</strong>
+                        <input name="whatsapp" type="text" value=<%=accountholder.whatsapp%>>
+                    </div>
+                    <div class="separate-div">
+                        <strong>Instagram:</strong>
+                        <input name="instagram" type="text" value=<%=accountholder.instagram%>>
+                    </div>
+                    <div class="separate-div">
+                        <strong>Any other Personal Website:</strong>
+                        <input name="personalwebsite" type="text" value=<%=accountholder.personalwebsite%>>
                     </div>
                 </div>
 
