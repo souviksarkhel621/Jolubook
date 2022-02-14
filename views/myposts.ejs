@@ -1,232 +1,33 @@
-<%- include('partials/header',{user:currentuser}); -%>
-
-<div class="chatbox" id="chatbox" onclick="closePopup()" >
-  <div>
-    <% allposts.forEach(function(post){ %>
-    <div class="feed">
-
-      <div class="user-profile-container">
-        <div class="user-img">
-          <img src="./uploads/<%=post.authordp%>" alt="">
-        </div>
-
-        <div class="user-info">
-          <p class="user-name"><%=post.author%></p>
-          <p class="user-bio">Currently Working At: <strong><%=post.authorg%></strong></p>
-          <p class="user-bio">JGEC&nbsp&nbsp<%=post.authdept%>&nbsp'<%=post.authpassyear%></p>
-        </div>
-        <div class="post-time-div">
-          <i class="fas fa-globe-asia"></i>
-          <p><%= post.posttime %></p>
-        </div>
-
-        <div onclick="displayEdit()" class="three-dots" >
-          <i class='bx bx-dots-horizontal-rounded'></i>
-        </div>
-
-        <div class="outer-display-edit-div" id="outer-display-edit-div">
-          <div class="inner-display-edit-div">
-
-            <div class="item">
-              <div class="item-icon">
-                <i class="far fa-bookmark"></i>
-              </div>
-              <div class="item-contents">
-                <div>
-                  <p>Save</p>
-                  <p>Save for later</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="item-icon">
-                <i class="fas fa-link"></i>
-              </div>
-              <div class="item-contents">
-                <div>
-                  <p>Copy link</p>
-                </div>
-              </div>
-            </div>
-            <% if(post.poster===currentuser.username){ %>
-              <div class="item">
-                <div class="item-icon">
-                  <i class="fas fa-pen"></i>
-                </div>
-                <div class="item-contents">
-                  <div>
-                    <p>Edit post</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item">
-                <div class="item-icon">
-                  <i class="fas fa-trash-alt"></i>
-                </div>
-                <div class="item-contents">
-                  <div>
-                    <p>Delete post</p>
-                  </div>
-                </div>
-              </div>
-
-            <% }%>
-
-          </div>
-        </div>
-
-      </div>
-
-      <div class="user-chatbox">
-        <p><%=post.post%></p>
-        <% if(post.posttype==="1"){ %>
-          <a target="_blank" href="./uploads/<%=post.postfile%>"><button type="button" name="button">Click Here to see the file</button></a>
-          <% }%>
-        <% if(post.posttype==="2"){ %>
-          <img style="width:350px" src="./uploads/<%=post.postfile%>" alt="Attached Image">
-        <% }%>
-        <% if(post.posttype==="3"){ %>
-          <video width="400" height="300" controls>
-            <source src="./uploads/<%=post.postfile%>" type="video/mp4">
-          </video>
-        <% }%>
-        <% if(post.posttype==="4"){ %>
-          <audio controls>
-          <source src="./uploads/<%=post.postfile%>" type="audio/mpeg">
-          </audio>
-        <% }%>
-      </div>
-
-      <hr style="margin: 4px 0; border: 0; height: 1px;">
-      <div class="comment-like-share">
-        <div onclick="handleClickOnLike(event)" > <i class='bx bxs-like'></i> <span id="countLike"></span> <span>Like</span> </div>
-        <div onclick="displayCommentSection(event)"> <i class='bx bx-comment-detail'></i> <span id="countComment"></span> <span>Comment</span> </div>
-        <div > <i class="fal fa-share"></i> <span id="countShare"></span> <span>Share</span></div>
-      </div>
-
-
-      <!--Start Comment Div-->
-
-      <div class="start-comment">
-        <div class="container-img">
-          <!-- <img src="/images/<%=currentuser.dp%>" alt="_image"> -->
-          <img src="/images/mongalmoy_img.jpg" alt="_image">
-        </div>
-        <div class="input-comment">
-          <input type="text" name="inputComment">
-          <div class="comment-img-emoji">
-            <div class="comment-img"> <i class="far fa-smile"></i> </div>
-            <div class="comment-emoji"> <i class="fas fa-image"></i> </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <% }) %>
-
-  </div>
-
-</div>
-
-
-<div class="post-box-container" id="sendFormDiv" onclick="closePopup()" >
-
-  <form action="/addpost" method="POST" enctype="multipart/form-data">
-    <div class="post-heading">
-      <div>
-        <p>Create a post</p>
-
-      <i class=' close-button bx bx-x' onclick="closeForm()"></i>
-      </div>
-    </div>
-
-    <hr>
-
-    <div class="post-name-img">
-      <img src="./uploads/<%=currentuser.dp%>" alt="_image">
-      <div class="post-name">
-        <%=currentuser.name%>
-      </div>
-    </div>
-
-    <div class="post-box-body">
-      <textarea name="inputText" id="posttextarea" cols="50" rows="6" placeholder="What do you want to talk about?" onkeypress="handleChange()" onkeyup="handleChange()" onchange="handleChange()"></textarea>
-    </div>
-
-    <div class="send-button">
-      <button type="submit" ><i id="sendButton" class='bx bxs-send'></i></button>
-    </div>
-
-    <div class="attach-icon-div" id="attachIcons">
-      <ul>
-
-        <!-- <li>
-          <div onclick="handleCaptureButton()" id="start-camera" class="camera-holder">
-            <i class="fas fa-camera"></i>
-          </div>
-          <span class="tooltip">Camera</span>
-        </li> -->
-
-        <li>
-          <div onclick="handleAttachImage()" class="image-holder">
-            <i class="fas fa-image"></i>
-            <input class="input-file"  type="file" name="postfile" accept=".png, .jpeg, .jpg,.jpe,.mp4" >
-          </div>
-          <span class="tooltip">Image</span>
-        </li>
-
-         <li>
-          <div onclick="handleAttachDocument()" class="document-holder">
-            <i class="far fa-file"></i>
-            <input class="input-file" type="file" name="postfile" accept=".xlsx,.xls ,.doc, .docx,.ppt, .pptx,.txt,.pdf" >
-          </div>
-          <span class="tooltip">Document</span>
-        </li>
-
-         <li>
-          <div onclick="handleAttachAudio()" class="audio-holder">
-            <i class="fas fa-headphones-alt"></i>
-            <input class="input-file" type="file" name="postfile" accept=".mp3, .wav" >
-          </div>
-          <span class="tooltip">Audio</span>
-        </li>
-
-      </ul>
-
-    </div>
-
-
-    <!-- <video id="video" width="380" height="280" playsinline autoplay></video>
-    <button id="capture">Capture</button>
-    <canvas id="canvas" width="380" height="280"></canvas> -->
-
-
-    <div class="attach" onclick="dispalyAttachIcons()">
-      <i class="far fa-paperclip"></i>
-    </div>
-
-  </form>
-</div>
+<% if(post.postfile.substr(post.postfile.length - 4)==".pdf"){%>
+  <!-- <h1>Case1</h1> -->
+<% }%>
 
 
 
-<div id="openStartDiv" class="start-post-div" onclick="closePopup()" >
-
-    <div class="post-body">
-
-      <div class="start-post-img">
-        <img src="./uploads/<%=currentuser.dp%>" alt="_userimage">
-      </div>
-      <div class="start-post-content">
-        <input onfocus="openForm()" placeholder="Add a post">
-      </div>
-
-    </div>
-
-</div>
+<!-- xlsx -->
+<% if(post.postfile.substr(post.postfile.length - 4)=="xlsx"){%>
+<img src="/images/excel.png" alt="excel">
+<!-- <h1>Case2</h1> -->
+<% }%>
 
 
+<!-- pptx -->
+<% if(post.postfile.substr(post.postfile.length - 4)=="pptx"){ %>
+  <!-- <h1>Case3</h1> -->
+<svg style="color: #fa4c17;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-ppt-fill" viewBox="0 0 16 16">
+  <path d="M8.188 10H7V6.5h1.188a1.75 1.75 0 1 1 0 3.5z"/>
+  <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM7 5.5a1 1 0 0 0-1 1V13a.5.5 0 0 0 1 0v-2h1.188a2.75 2.75 0 0 0 0-5.5H7z"/>
+</svg>
 
-<%- include('partials/footer'); -%>
+
+<% }%>
+
+<% if(post.postfile.substr(post.postfile.length - 4)=="docx") {%>
+  <!-- <h1>Case4</h1> -->
+<svg style="color: #fa4c17;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-ppt-fill" viewBox="0 0 16 16">
+  <path d="M8.188 10H7V6.5h1.188a1.75 1.75 0 1 1 0 3.5z"/>
+  <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM7 5.5a1 1 0 0 0-1 1V13a.5.5 0 0 0 1 0v-2h1.188a2.75 2.75 0 0 0 0-5.5H7z"/>
+</svg>
+
+
+<% }%>

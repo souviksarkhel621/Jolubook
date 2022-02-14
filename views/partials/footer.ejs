@@ -5,7 +5,7 @@
   <i onclick="closePopup1()" class="bx bx-x"></i>
 
   <div class="profile-img">
-    <img src="/images/mongalmoy_img.jpg"></img>
+    <img src="images/mongalmoy_img.jpg"></img>
   </div>
   <div class="profile-details">
     <h1>Mongalmoy Karmakar</h1>
@@ -30,7 +30,7 @@
   <i onclick="closePopup2()" class="bx bx-x"></i>
 
   <div class="profile-img">
-    <img src="/images/souviksarkhel_img.jpeg"></img>
+    <img src="images/souviksarkhel_img.jpeg"></img>
   </div>
   <div class="profile-details">
     <h1>Souvik Sarkhel</h1>
@@ -66,6 +66,21 @@
       openPopup2();
     }
   }
+
+
+  function showAccPageRemoveUploadButton() {
+    const element = document.getElementById("account-page-dp-upload-remove");
+    if(element.style.display==="block"){
+      element.style.display="none";
+    } else {
+      element.style.display="block";
+    }
+  }
+
+  function removeAccPageRemoveUploadButton() {
+    document.getElementById("account-page-dp-upload-remove").style.display="none";
+  }
+
 
   function openPopup1() {
     const element = document.getElementById('mongalmoyProfile');
@@ -108,28 +123,36 @@
     document.getElementById('openStartDiv').style.opacity = 1;
     document.getElementById('sendFormDiv').style.display = "none";
     document.getElementById('chatbox').style.opacity = 1;
+
+    document.getElementById("emoji-icon-container").style.display="none";
+    document.getElementById("attachIcons").style.display="none";
   }
 
-  function handleChange() {
+  function handleInputTextChange() {
     const inputText = document.getElementById('posttextarea').value;
 
     if (inputText == "") {
       document.getElementById('sendButton').style.color = '#929292';
+      document.getElementById('posttextarea').style.border="2px solid #fff";
     } else {
       document.getElementById('sendButton').style.color = '#0734fd';
+      document.getElementById('posttextarea').style.border="2px solid #E0E0E0";
     }
   }
 
-  function displayEdit(e) {
-    // const elements = document.querySelectorAll('.three-dots');
-    // for (let i = 0; i < elements.length; i++) {
-    //   elements[i].classList('')
-    // }
+  function displayEdit(id) {
+    console.log(id);
+    const element = document.getElementById(id);
+    if(element.style.display==="block"){
+      element.style.display="none";
+    } else {
+      element.style.display="block";
+    }
   }
 
 
   function handleClickOnLike(e) {
-    console.log(e);
+    // console.log(e);
   }
 
 
@@ -149,9 +172,36 @@
     e.srcElement.attributes[2].value = "true";
     e.srcElement.attributes[3].value = "0";
 
-    console.log(e.srcElement.attributes[3].value = "0");
+    // console.log(e.srcElement.attributes[3].value = "0");
 
     displayEditSection(e);
+  }
+
+
+  function manageUserChatBoxMargin() {
+    const elements = document.querySelectorAll(".user-chatbox");
+    for(let i=0;i<elements.length;i++){
+      if(elements[i].innerText===""){
+        elements[i].style.margin="0";
+        elements[i].style.padding="0";
+      } else{
+        elements[i].style.margin="0 12px";
+        elements[i].style.padding="5px";
+      }
+    }
+  }
+  manageUserChatBoxMargin()
+
+
+  function manageDeptLinks(e) {
+    const btns = document.querySelectorAll(".jolutree-btn-grp__item");
+    console.log(btns);
+    for(let i=0;i<btns.length;i++){
+      console.log(btns[i]);
+      btns[i].classList.remove('active');
+    }
+    e.target.attributes.add('active');
+    console.log(e.target.attributes);
   }
 
 
@@ -159,7 +209,7 @@
     let feedElements = document.querySelectorAll(".feed");
     feedElements.forEach(function (element) {
       if (element === event.path[2] || element === event.path[3]) {
-        console.log(element.style.height);
+        // console.log(element.style.height);
         if (element.style.height === "260px") {
           element.style.height = "210px";
           element.classList.remove("active");
@@ -174,12 +224,14 @@
 
 
   function dispalyAttachIcons() {
+    document.getElementById("emoji-icon-container").style.display="none";
+
     let element = document.getElementById("attachIcons");
 
-    if (element.style.display === "none") {
-      element.style.display = "block";
-    } else {
+    if (element.style.display === "block") {
       element.style.display = "none";
+    } else {
+      element.style.display = "block";
     }
   }
 
@@ -230,24 +282,67 @@
   });
 
 
+
   function displayCoverEditPopup() {
     const element = document.getElementById('coverEditPopup');
 
-    if (element.style.display === "none") {
-      element.style.display = "block";
-    } else {
+    if (element.style.display === "block") {
       element.style.display = "none";
+    } else {
+      element.style.display = "block";
     }
   }
+
+
 
   function removeCoverEditPopup() {
     document.getElementById('coverEditPopup').style.display = "none";
   }
 
+
   function inputCoverPhoto() {
     const element = document.getElementById('inputUserCoverPhoto');
     element.click();
   }
+
+
+
+  function showDeleteAcountAlert(e) {
+    const element=document.getElementById('delete-account-div');
+    const accountPage=document.querySelector('.account-page-edit-container');
+
+    element.style.display="block";
+    accountPage.style.opacity="0.2";
+  }
+
+
+  function hideDeleteAcountAlert() {
+    const element=document.getElementById('delete-account-div');
+    const accountPage=document.querySelector('.account-page-edit-container');
+
+    element.style.display="none";
+    accountPage.style.opacity="1";
+  }
+
+
+  function displayAllEmojies() {
+    document.getElementById("attachIcons").style.display="none";
+
+    const element = document.getElementById("emoji-icon-container");
+    if(element.style.display==="block") {
+      element.style.display="none";
+    } else {
+      element.style.display="block";
+    }
+  }
+
+
+  function appendEmojiToTextarea(event) {
+    document.getElementById("posttextarea").value+=event.srcElement.innerText;
+    handleInputTextChange();
+  }
+
+
 </script>
 
 </body>
